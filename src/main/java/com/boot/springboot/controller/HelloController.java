@@ -1,4 +1,4 @@
-package com.boraji.tutorial.springboot.controller;
+package com.boot.springboot.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ public class HelloController {
    }
 
    @PostMapping("/hello")
-   public String sayHello(@RequestParam("name") String name, Model model) {
+   public String sayHello(@RequestParam String name, Model model) {
       model.addAttribute("name", name);
       return "hello";
    }

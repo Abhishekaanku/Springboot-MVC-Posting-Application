@@ -1,10 +1,10 @@
-package com.boraji.tutorial.springboot.service;
+package com.boot.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.boraji.tutorial.springboot.dao.UserDao;
-import com.boraji.tutorial.springboot.model.Login;
-import com.boraji.tutorial.springboot.model.User;
+import com.boot.springboot.dao.UserDao;
+import com.boot.springboot.model.Login;
+import com.boot.springboot.model.User;
 
 
 public class UserService {

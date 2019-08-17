@@ -1,4 +1,4 @@
-package com.boraji.tutorial.springboot;
+package com.boot.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,14 +1,15 @@
-package com.boraji.tutorial.springboot.dao;
+package com.boot.springboot.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.sql.DataSource;
+
+import com.boot.springboot.model.Login;
+import com.boot.springboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import com.boraji.tutorial.springboot.model.Login;
-import com.boraji.tutorial.springboot.model.User;
 
 
 public class UserDaoImpl implements UserDao {
