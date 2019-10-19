@@ -15,7 +15,7 @@ local.properties
 .loadpath
 .recommenders
 .idea/
-.iml
+*.iml
 beans.xml
 
 # External tool builders
