@@ -4,9 +4,10 @@
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<context:component-scan
-		base-package="com.boraji.tutorial.springboot" />
+		base-package="com.boot.springboot" />
 
 	<context:annotation-config />
+	<context:property-placeholder location="classpath:application.properties"/>
 
 	<bean id="userService" class="com.boot.springboot.service.UserService" />
 
@@ -28,9 +29,13 @@
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/myuser" />
 
-		<property name="username" value="root" />
+		<property name="username" value="${user.name}"/>
 
-		<property name="password" value="kumar123" />
+		<property name="password" value="${user.password}" />
+
+<!--		<property name="username" value="#{systemProperties['user.name']}"/>-->
+
+<!--		<property name="password" value="#{systemProperties['user.password']}"/>-->
 
 	</bean>
 

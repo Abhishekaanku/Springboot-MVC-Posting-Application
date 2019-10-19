@@ -25,14 +25,6 @@
 
 		<tr>
 
-		</tr>
-
-		<tr>
-
-		</tr>
-
-		<tr>
-
 			<td><a href="/">Home</a></td>
 
 		</tr>

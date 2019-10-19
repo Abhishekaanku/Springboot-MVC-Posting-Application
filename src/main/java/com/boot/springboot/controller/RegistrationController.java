@@ -27,9 +27,8 @@ public class RegistrationController {
   }
 
   @PostMapping("/register")
-  public String addUser(Model model,@ModelAttribute("user") User user) {
+  public String addUser(@ModelAttribute("user") User user) {
 	  userService.register(user);
-	  model.addAttribute("firstname",user.getFirstname());
-	  return "welcome";
+	  return "redirect:/"+user.getFirstname();
   }
 }

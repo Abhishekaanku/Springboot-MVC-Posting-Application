@@ -24,9 +24,9 @@
 
 			<tr>
 
-				<td><form:label path="username">Username: </form:label></td>
+				<td><form:label path="userName">Username: </form:label></td>
 
-				<td><form:input path="username" name="username" id="username" />
+				<td><form:input path="userName" name="username" id="username" />
 
 				</td>
 

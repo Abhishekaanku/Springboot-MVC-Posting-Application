@@ -10,8 +10,10 @@ import com.boot.springboot.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class UserDaoImpl implements UserDao {
 
   @Autowired
@@ -32,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
     public User validateUser(Login login) {
 
-    String sql = "select * from users where username='" + login.getUsername() + "' and password='" + login.getPassword()
+    String sql = "select * from users where username='" + login.getUserName() + "' and password='" + login.getPassword()
 
     + "'";
 
