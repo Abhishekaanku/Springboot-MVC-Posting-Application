@@ -1,4 +1,6 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -11,69 +13,56 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<title>Login</title>
+	<link href="<s:url value="/static/css/style.css" />" rel="stylesheet">
+	<script type="text/javascript" src="<s:url value="/static/js/app.js"/>"></script>
+	<title>Login</title>
 
 </head>
 
 <body>
 
-	<form:form id="loginForm" modelAttribute="login" action="login"
-		method="post">
+	<sf:form id="loginForm" modelAttribute="login" action="login"
+		method="post" cssClass="loginForm" onsubmit="return validate2()">
 
 		<table align="center">
 
 			<tr>
 
-				<td><form:label path="userName">Username: </form:label></td>
+				<td><sf:label path="userName">Username: </sf:label></td>
 
-				<td><form:input path="userName" name="username" id="username" />
+				<td><sf:input path="userName" id="username" /></td>
+				<td><sf:errors path="userName" cssClass="error"/></td>
 
-				</td>
-
-			</tr>
-
-			<tr>
-
-				<td><form:label path="password">Password:</form:label></td>
-
-				<td><form:password path="password" name="password"
-						id="password" /></td>
 
 			</tr>
 
 			<tr>
 
+				<td><sf:label path="password">Password:</sf:label></td>
+				<td><sf:password path="password" id="password" /></td>
+				<td><sf:errors path="password" cssClass="error"/></td>
+
+			</tr>
+
+			<tr>
+				<td></td>
+				<td align="left"><sf:button id="login" name="login">Login</sf:button></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td><a href="<c:url value="/"/>">Home</a></td>
+			</tr>
+			<tr>
 				<td></td>
 
-				<td align="left"><form:button id="login" name="login">Login</form:button>
-
-				</td>
-
-			</tr>
-
-			<tr></tr>
-
-			<tr>
-
-				<td></td>
-
-				<td><a href="/">Home</a></td>
+				<td style="font-style: italic; color: red;">${message}</td>
 
 			</tr>
 
 		</table>
 
-	</form:form>
-
-	<table align="center">
-
-		<tr>
-
-			<td style="font-style: italic; color: red;">${message}</td>
-
-		</tr>
-
-	</table>
+	</sf:form>
 
 </body>
 

@@ -2,10 +2,8 @@ package com.boot.springboot.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class HelloController {
@@ -20,9 +18,9 @@ public class HelloController {
       return "index";
    }
 
-   @PostMapping("/hello")
-   public String sayHello(@RequestParam String name, Model model) {
-      model.addAttribute("name", name);
-      return "hello";
+   @GetMapping("/hello")
+   public String sayHello(/*@RequestParam String name,*/ Model model) {
+//      model.addAttribute("name", name);
+      return "redirect:/error";
    }
 }

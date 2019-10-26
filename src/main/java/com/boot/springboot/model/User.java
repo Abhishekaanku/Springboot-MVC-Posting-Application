@@ -1,20 +1,39 @@
 package com.boot.springboot.model;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class User {
-	  private String username;
+	  @NotNull
+	  @Size(min = 3,max = 50)
+	  private String userName;
+
+	  @NotNull
+	  @Size(min = 5,max=20)
 	  private String password;
-	  private String firstname;
-	  private String lastname;
+
+	  @NotNull
+	  @Size(min=3,max = 30)
+	  private String firstName;
+
+	  private String lastName;
 	  private String email;
+
 	  private String address;
+
+	  @Digits(integer = 10,fraction = 0)
 	  private long phone;
 
-	public String getUsername() {
-		return username;
+	  private String profilePicture;
+
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public long getPhone() {
@@ -25,20 +44,20 @@ public class User {
 		this.password = password;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -63,5 +82,13 @@ public class User {
 
 	public void setPhone(long phone) {
 		this.phone = phone;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
 	}
 }

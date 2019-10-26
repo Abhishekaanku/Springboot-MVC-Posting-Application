@@ -3,7 +3,6 @@ package com.boot.springboot.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javax.sql.DataSource;
 
 import com.boot.springboot.model.Login;
 import com.boot.springboot.model.User;
@@ -17,18 +16,15 @@ import org.springframework.stereotype.Component;
 public class UserDaoImpl implements UserDao {
 
   @Autowired
-  DataSource datasource;
-
-  @Autowired
   JdbcTemplate jdbcTemplate;
 
   public void register(User user) {
 
-    String sql = "insert into users values(?,?,?,?,?,?,?)";
+    String sql = "insert into users values(?,?,?,?,?,?,?,?)";
 
-    jdbcTemplate.update(sql, new Object[] { user.getUsername(), user.getPassword(), user.getFirstname(),
+    jdbcTemplate.update(sql, new Object[] { user.getUserName(), user.getPassword(), user.getFirstName(),
 
-    user.getLastname(), user.getEmail(), user.getAddress(), user.getPhone() });
+    user.getLastName(), user.getEmail(), user.getAddress(), user.getPhone(),user.getProfilePicture() });
 
     }
 
@@ -52,19 +48,21 @@ public class UserDaoImpl implements UserDao {
 
     User user = new User();
 
-    user.setUsername(rs.getString("username"));
+    user.setUserName(rs.getString("username"));
 
     user.setPassword(rs.getString("password"));
 
-    user.setFirstname(rs.getString("firstname"));
+    user.setFirstName(rs.getString("firstname"));
 
-    user.setLastname(rs.getString("lastname"));
+    user.setLastName(rs.getString("lastname"));
 
     user.setEmail(rs.getString("email"));
 
     user.setAddress(rs.getString("address"));
 
     user.setPhone(rs.getLong("phone"));
+
+    user.setProfilePicture(rs.getString("picture"));
 
     return user;
 

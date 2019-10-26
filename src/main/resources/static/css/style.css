@@ -1,7 +1,14 @@
-.form {
-	background-color: #efefef;
-	width: 400px;
-	height: 50px;
+form.loginForm,form.registrationForm{
+	background-color: lightgreen;
+	height: 300px;
 	border-radius: 7px;
 	padding: 20px;
+}
+span.error {
+	color: red;
+	font-size: 12px;
+}
+div.error404 {
+	color: red;
+	font-size: 18px;
 }
