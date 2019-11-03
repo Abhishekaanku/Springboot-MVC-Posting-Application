@@ -12,11 +12,8 @@
 <body>
 <table align="center">
     <tr>
-        <td><a href="<c:url value="/"/>">Home</a></td>
-    </tr>
-
-    <tr>
         <td><a href="<c:url value="/users/${userName}"/>">Profile</a></td>
+        <td><a href="<c:url value="/logout/${userName}"/>">Logout</a></td>
     </tr>
 
     <tr>

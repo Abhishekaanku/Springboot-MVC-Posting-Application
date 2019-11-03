@@ -18,15 +18,14 @@
 		</tr>
 
 		<tr>
-			<td><a href="<c:url value="/"/>">Home</a></td>
-		</tr>
-
-		<tr>
 			<td><a href="<c:url value="/post/${user.userName}/add"/>">New Post</a></td>
 		</tr>
 
 		<tr>
 			<td><a href="<c:url value="/post/${user.userName}/posts"/>">My Posts</a></td>
+		</tr>
+		<tr>
+			<td><a href="<c:url value="/logout/${user.userName}"/>">Logout</a></td>
 		</tr>
 	</table>
 </body>

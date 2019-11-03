@@ -34,7 +34,7 @@
 
 			<tr>
 				<td></td>
-				<td><a href="<c:url value="/"/>">Home</a></td>
+				<td><a href="<c:url value="/register"/>">Register</a></td>
 			</tr>
 			<tr>
 				<td></td>
