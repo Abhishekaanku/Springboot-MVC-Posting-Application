@@ -16,57 +16,62 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Base64;
 
 
 @Controller
-
 public class LoginController {
 
-  @Autowired
-  UserService userService;
-  
-  @RequestMapping("/login")
-  public String sayHello(Model model) {
-     model.addAttribute("login", new Login());
-     return "login";
-  }
-  
-  
-  @RequestMapping("/users/{userName}")
-  public String sayWelcome(Model model, @PathVariable(value = "userName")String userName) {
-     if(!model.containsAttribute("user")) {
-         return "error";
-     }
-     return "welcome";
-  }
-  
+    @Autowired
+    UserService userService;
 
-  @PostMapping(value = "/login")
-  public String loginProcess(Model model,RedirectAttributes redirectModel,
-                             @ModelAttribute("login") @Valid Login login, Errors errors) throws IOException,FileNotFoundException{
-    if(errors.hasErrors()) {
-      model.addAttribute("message","Invalid Input");
-      return "login";
+    @RequestMapping("/login")
+    public String sayHello(Model model) {
+        model.addAttribute("login", new Login());
+        return "login";
     }
 
-    User user = userService.validateUser(login);
 
-    if (null != user) {
-        FileInputStream in=new FileInputStream(new File(user.getProfilePicture()));
-        byte[] data=new byte[in.available()];
-        in.read(data);
-        String base64= Base64.getEncoder().encodeToString(data);
-        redirectModel.addFlashAttribute("image",base64);
-        redirectModel.addFlashAttribute("user",user);
-        redirectModel.addAttribute("userName",user.getUserName());
-        return "redirect:/users/{userName}";
+    @RequestMapping("/users/{userName}")
+    public String sayWelcome(Model model, @PathVariable(value = "userName") String userName)
+            throws IOException {
+        if(1==1) {
+            User user=userService.getUser(userName);
+            if (user==null) {
+                return "error";
+            }
+
+            FileInputStream in = new FileInputStream(new File(user.getProfilePicture()));
+            byte[] data = new byte[in.available()];
+            in.read(data);
+            String base64 = Base64.getEncoder().encodeToString(data);
+
+            model.addAttribute("user",user);
+            model.addAttribute("image",base64);
+            return "welcome";
+        }
+        else {
+            return "login";
+        }
     }
-    model.addAttribute("message", "Username or Password is wrong!!");
-    return "login";
-  }
+
+
+    @PostMapping(value = "/login")
+    public String loginProcess(Model model, @ModelAttribute("login") @Valid Login login,
+                               Errors errors) {
+        if (errors.hasErrors()) {
+            model.addAttribute("message", "Invalid Input");
+            return "login";
+        }
+
+        if (userService.validateUser(login)) {
+            model.addAttribute("userName", login.getUserName());
+            return "redirect:/users/{userName}";
+        }
+        model.addAttribute("message", "Username or Password is wrong!!");
+        return "login";
+    }
 }
 
 

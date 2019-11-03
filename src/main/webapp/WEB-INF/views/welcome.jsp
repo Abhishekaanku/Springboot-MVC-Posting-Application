@@ -16,8 +16,17 @@
 		<tr>
 			<td><img src="data:image/jpg;base64,${image}"style="height: 200px;width: 200px"/></td>
 		</tr>
+
 		<tr>
 			<td><a href="<c:url value="/"/>">Home</a></td>
+		</tr>
+
+		<tr>
+			<td><a href="<c:url value="/post/${user.userName}/add"/>">New Post</a></td>
+		</tr>
+
+		<tr>
+			<td><a href="<c:url value="/post/${user.userName}/posts"/>">My Posts</a></td>
 		</tr>
 	</table>
 </body>

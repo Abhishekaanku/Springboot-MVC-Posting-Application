@@ -2,7 +2,7 @@ package com.boot.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.boot.springboot.dao.UserDao;
+import com.boot.springboot.repo.UserRepo;
 import com.boot.springboot.model.Login;
 import com.boot.springboot.model.User;
 import org.springframework.stereotype.Component;
@@ -11,13 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserService {
 	@Autowired
-	UserDao userDao;
+	UserRepo userRepo;
 
 	public void register(User user) {
-		userDao.register(user);
+		userRepo.register(user);
 	}
-	public User validateUser(Login login) {
-		return userDao.validateUser(login);
+	public boolean validateUser(Login login) {
+		return userRepo.validateUser(login);
+	}
+	public User getUser(String userName) {
+		return userRepo.getUser(userName);
 	}
 
 }

@@ -24,7 +24,6 @@ public class RootConfig {
         dataSource.setUsername(userName);
         dataSource.setPassword(password);
         return dataSource;
-
     }
 
     @Bean
