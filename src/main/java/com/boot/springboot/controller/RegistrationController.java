@@ -46,15 +46,13 @@ public class RegistrationController {
         return "register";
       }
       String filePath="/home/aparna/test/dp/"+profilePic.getSubmittedFileName();
-      user.setProfilePicture(filePath);
-      userService.register(user);
-      userSession.logIn(user.getUserName());
       profilePic.write(filePath);
-      byte[] data=new byte[(int)profilePic.getSize()];
-      profilePic.getInputStream().read(data);
-      String base64= Base64.getEncoder().encodeToString(data);
-      model.addFlashAttribute("image",base64);
-      model.addFlashAttribute("user",user);
+      user.setProfilePicture(filePath);
+
+      userService.register(user);
+
+      userSession.logIn(user.getUserName());
+
       model.addAttribute("userName",user.getUserName());
       return "redirect:/users/{userName}";
   }
