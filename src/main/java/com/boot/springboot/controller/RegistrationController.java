@@ -1,6 +1,7 @@
 package com.boot.springboot.controller;
 
 import com.boot.springboot.model.User;
+import com.boot.springboot.model.UserSession;
 import com.boot.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Base64;
 
 
@@ -25,6 +25,9 @@ public class RegistrationController {
 
   @Autowired
   public UserService userService;
+
+  @Autowired
+  UserSession userSession;
 
   @RequestMapping("/register")
   public String showRegister(Model model) {
@@ -45,6 +48,7 @@ public class RegistrationController {
       String filePath="/home/aparna/test/dp/"+profilePic.getSubmittedFileName();
       user.setProfilePicture(filePath);
       userService.register(user);
+      userSession.logIn(user.getUserName());
       profilePic.write(filePath);
       byte[] data=new byte[(int)profilePic.getSize()];
       profilePic.getInputStream().read(data);
