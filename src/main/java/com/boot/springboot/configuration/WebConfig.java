@@ -12,6 +12,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @EnableWebMvc
@@ -19,13 +25,43 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
-    public ViewResolver viewResolver(@Value("${view.prefix}") String prefix,
-                                     @Value("${view.suffix}") String suffix) {
+    public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+        ThymeleafViewResolver viewResolver=new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine);
+        viewResolver.setOrder(1);
+        return viewResolver;
+    }
+
+
+    @Bean
+    public ViewResolver viewResolver(@Value("${jspView.prefix}") String prefix,
+                                     @Value("${jspView.suffix}") String suffix) {
         InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
         viewResolver.setPrefix(prefix);
         viewResolver.setSuffix(suffix);
         viewResolver.setExposeContextBeansAsAttributes(true);
         return viewResolver;
+    }
+
+
+    @Bean
+    public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
+        SpringTemplateEngine templateEngine=new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        return templateEngine;
+    }
+
+    @Bean
+    public TemplateResolver templateResolver(@Value("${view.prefix}") String prefix,
+                                             @Value("${view.suffix}") String suffix) {
+//        TemplateResolver templateResolver=new ServletContextTemplateResolver();
+        TemplateResolver templateResolver=new SpringResourceTemplateResolver();
+
+        templateResolver.setPrefix(prefix);
+        templateResolver.setSuffix(suffix);
+        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setCacheable(true);
+        return templateResolver;
     }
 
     @Bean

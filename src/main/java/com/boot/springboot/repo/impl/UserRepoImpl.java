@@ -1,9 +1,11 @@
-package com.boot.springboot.repo;
+package com.boot.springboot.repo.impl;
 
 import java.util.List;
 
 import com.boot.springboot.model.Login;
 import com.boot.springboot.model.User;
+import com.boot.springboot.repo.QueryStatement;
+import com.boot.springboot.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

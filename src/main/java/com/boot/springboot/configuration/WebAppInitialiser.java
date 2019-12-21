@@ -1,7 +1,9 @@
 package com.boot.springboot.configuration;
 
+import com.boot.springboot.filter.PostFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
@@ -23,5 +25,10 @@ public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServlet
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{new PostFilter()};
     }
 }

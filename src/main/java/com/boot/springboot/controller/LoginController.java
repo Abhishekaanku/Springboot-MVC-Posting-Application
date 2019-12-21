@@ -3,7 +3,7 @@ package com.boot.springboot.controller;
 import com.boot.springboot.model.Login;
 import com.boot.springboot.model.User;
 import com.boot.springboot.model.UserSession;
-import com.boot.springboot.service.UserService;
+import com.boot.springboot.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.util.Base64;
 public class LoginController {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 
     @Autowired
     UserSession userSession;
@@ -42,7 +42,7 @@ public class LoginController {
     @RequestMapping("/users/{userName}")
     public String sayWelcome(Model model, @PathVariable(value = "userName") String userName)
             throws IOException {
-        User user = userService.getUser(userName);
+        User user = userServiceImpl.getUser(userName);
         if (user == null) {
             return "error";
         } else {
@@ -69,7 +69,8 @@ public class LoginController {
             return "login";
         }
 
-        if (userService.validateUser(login)) {
+        System.out.println("MMMMMMM "+login.getUserName()+" "+login.getPassword());
+        if (userServiceImpl.validateUser(login)) {
             model.addAttribute("userName", login.getUserName());
             userSession.logIn(login.getUserName());
             return "redirect:/users/{userName}";

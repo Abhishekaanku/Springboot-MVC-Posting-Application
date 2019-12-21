@@ -2,7 +2,7 @@ package com.boot.springboot.controller;
 
 import com.boot.springboot.model.Post;
 import com.boot.springboot.model.UserSession;
-import com.boot.springboot.repo.PostRepo;
+import com.boot.springboot.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostController {
     @Autowired
-    PostRepo postRepo;
+    PostService postService;
 
     @Autowired
     UserSession userSession;
@@ -55,7 +55,7 @@ public class PostController {
                 postPic.write(filePath);
                 postData.setPostImage(filePath);
             }
-            postRepo.addPost(postData);
+            postService.addPost(postData);
             model.addAttribute("userName", postData.getUserName());
             return "redirect:/post/{userName}/posts";
         } else {
@@ -67,7 +67,7 @@ public class PostController {
     public String myPost(Model model, @PathVariable(name = "userName") String userName) throws IOException {
 
         if (userSession.isLoggedIn(userName)) {
-            List<Post> myPosts = postRepo.getOwnPosts(userName);
+            List<Post> myPosts = postService.getOwnPosts(userName);
             List<String> photos = new ArrayList<>();
             for (Post post : myPosts) {
                 if (post.getPostImage() != null && post.getPostImage().length() != 0) {
@@ -78,7 +78,7 @@ public class PostController {
                     String imageBase64 = Base64.getEncoder().encodeToString(postImage);
                     photos.add(imageBase64);
                 } else {
-                    photos.add("");
+                    photos.add(null);
                 }
             }
 

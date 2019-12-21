@@ -1,6 +1,8 @@
-package com.boot.springboot.repo;
+package com.boot.springboot.repo.impl;
 
 import com.boot.springboot.model.Post;
+import com.boot.springboot.repo.PostRepo;
+import com.boot.springboot.repo.QueryStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;

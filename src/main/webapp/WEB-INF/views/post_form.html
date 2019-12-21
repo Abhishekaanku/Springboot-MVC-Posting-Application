@@ -1,0 +1,40 @@
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/static/js/app.js}"></script>
+    <title>Login</title>
+    </head>
+    <body>
+    <form id="postForm" th:object="${postData}" action="/post/add"
+    method="post" class="postForm" enctype="multipart/form-data" >
+        <table align="center">
+        <tr>
+        <td>
+            <input type="hidden" th:field="*{userName}"/>
+            <input type="hidden" th:field="*{date}"/>
+        </td>
+        </tr>
+        <tr>
+        <td><label>Enter Your Post: </label></td>
+        <td><input th:field="*{postContent}" id="post_content" /></td>
+        </tr>
+        <tr>
+        <td>Upload Picture(Optional)</td>
+        <td><input type="file" name="postPhoto" /></td>
+        </tr>
+        <tr>
+        <td></td>
+        <td align="left"><button id="post" name="post">Post</button></td>
+    </tr>
+    <tr>
+    <td></td>
+    <td><a th:href="@{/users/}+${postData.userName}">Posts</a></td>
+    <td><a th:href="@{/}">Home</a></td>
+    </tr>
+    </table>
+    </form>
+    </body>
+    </html>

@@ -1,0 +1,43 @@
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/static/js/app.js}"></script>
+    <title>Login</title>
+    </head>
+
+<body>
+
+<form id="loginForm" th:object="${login}" action="login"
+         method="post" class="loginForm" onsubmit="return validate2()">
+    <table align="center">
+        <tr>
+            <td><label th:class="${#fields.hasErrors('userName')}? 'error'">Username: </label></td>
+            <td><input type="text" th:field="*{userName}" id="username" /></td>
+            <td><span th:if="${#fields.hasErrors('userName')}" th:text="${#fields.errors('userName')}" class="error"/> </td>
+        </tr>
+        <tr>
+            <td><label th:class="${#fields.hasErrors('password')}? 'error'">Password:</label></td>
+            <td><input type="password" th:field="*{password}" id="password" /></td>
+            <td><span th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="error"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td align="left"><button id="login" name="login">Login</button></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><a th:href="@{/register}">Register</a></td>
+        </tr>
+        <tr th:if="${message}">
+            <td></td>
+            <td style="font-style: italic; color: red"><span th:text="${message}"></span></td>
+        </tr>
+    </table>
+</form>
+</body>
+
+</html>

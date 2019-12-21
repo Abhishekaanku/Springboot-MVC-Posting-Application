@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Welcome</title>
+</head>
+<body>
+<table align="center">
+    <tr>
+        <td><a th:href="@{/users/}+${userName}">Profile</a></td>
+        <td><a th:href="@{/logout/}+${userName}">Logout</a></td>
+    </tr>
+
+    <tr>
+        <td><h2><u th:text="'Posts for '+${userName}"></u></h2></td>
+    </tr>
+    <tr th:each="index:${#numbers.sequence(0, posts.size()-1, 1)}">
+        <tr>
+    <td><span th:text="'Date: '+${posts[index].date}"/></td>
+        </tr>
+        <tr>
+            <td><span th:text="${posts[index].postContent}"/></td>
+        </tr>
+        <tr th:if="${photos[index]}">
+                <td><img th:src="@{data:image/jpg;base64,}+${photos[index]}" style="alignment:center;height: 300px;width: 300px"/></td>
+        </tr>
+        <tr>
+            <td>___________________________________________________________________________</td>
+        </tr>
+    </tr>
+</table>
+</body>
+</html>

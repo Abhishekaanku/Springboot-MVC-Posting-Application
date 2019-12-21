@@ -12,3 +12,7 @@ div.error404 {
 	color: red;
 	font-size: 18px;
 }
+label.error{
+	color: red;
+	font-size: 16px;
+}

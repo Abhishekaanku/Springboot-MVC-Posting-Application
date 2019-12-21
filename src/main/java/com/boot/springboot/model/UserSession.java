@@ -9,31 +9,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Scope(value = WebApplicationContext.SCOPE_SESSION,proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserSession {
-    Map<String,Boolean> loggedInUser;
+    Map<String, Boolean> loggedInUser;
 
     UserSession() {
-        loggedInUser=new HashMap<>();
+        loggedInUser = new HashMap<>();
     }
 
     public void logIn(String userName) {
-        loggedInUser.put(userName,true);
+        loggedInUser.put(userName, true);
     }
+
     public void logOut(String userName) {
-        loggedInUser.put(userName,false);
+        loggedInUser.put(userName, false);
     }
 
     public boolean isLoggedIn(String userName) {
-        return loggedInUser.containsKey(userName)&&loggedInUser.get(userName);
+        return loggedInUser.containsKey(userName) && loggedInUser.get(userName);
     }
 
     public String getActiveUser() {
-        if(loggedInUser.isEmpty()) {
+        if (loggedInUser.isEmpty()) {
             return null;
         }
-        for(String userName:loggedInUser.keySet()) {
-            if(loggedInUser.get(userName)) {
+        for (String userName : loggedInUser.keySet()) {
+            if (loggedInUser.get(userName)) {
                 return userName;
             }
         }

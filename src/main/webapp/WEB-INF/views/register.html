@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/static/js/app.js}"></script>
+    <title>Registration</title>
+
+    </head>
+    <body>
+    <form id="regsf" th:object="${user}" action="register"
+    method="post" onsubmit="return validate2()" class="registrationForm"
+    enctype="multipart/form-data">
+        <table align="center">
+        <tr>
+            <td><label>Username</label></td>
+            <td><input type="text" th:field="*{userName}" id="username" /></td>
+            <td><span th:if="${#fields.hasErrors('userName')}" th:text="${#fields.errors('userName')}" class="error"/> </td>
+
+        </tr>
+        <tr>
+            <td><label>Password</label></td>
+            <td><input type="password" th:field="*{password}" id="password" /></td>
+            <td><span th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" class="error"/> </td>
+
+        </tr>
+        <tr>
+            <td><label>FirstName</label></td>
+            <td><input type="text" th:field="*{firstName}" id="firstname" /></td>
+            <td><span th:if="${#fields.hasErrors('firstName')}" th:text="${#fields.errors('firstName')}" class="error"/> </td>
+
+        </tr>
+        <tr>
+            <td><label>LastName</label></td>
+            <td><input type="text" th:field="*{lastName}" id="lastname" />
+        </td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}" id="email" /></td>
+        </tr>
+        <tr>
+            <td><label>Address</label></td>
+            <td><input type="text" th:field="*{address}" id="address" />
+        </td>
+        </tr>
+        <tr>
+            <td><label>Phone</label></td>
+            <td><input type="text" th:field="*{phone}" id="phone" /></td>
+        </tr>
+        <tr>
+            <td>Profile Picture</td>
+            <td><input type="file" name="profilePic" /></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button id="register" name="register">Register</button>
+        </td>
+        </tr>
+        <tr></tr>
+        <tr>
+        <td></td>
+        <td><a href="/">Home</a></td>
+    </tr>
+    </table>
+    <table align="center">
+        <tr th:if="${message}">
+        <td style="font-style: italic; color: red;"><span th:text="${message}"></span></td>
+
+        </tr>
+        </table>
+        </form>
+        </body>
+        </html>

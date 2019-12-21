@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <title>Welcome</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td><span th:text="'Welcome ' +${user.firstName}"/></td>
+    </tr>
+    <tr>
+        <td><img th:src="@{data:image/jpg;base64,}+${image}" style="height: 200px;width: 200px"/></td>
+    </tr>
+
+    <tr>
+        <td><a th:href="@{/post/}+${user.userName}+@{/add}">New Post</a></td>
+    </tr>
+
+    <tr>
+        <td><a th:href="@{/post/}+${user.userName}+@{/posts}">My Posts</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/logout/}+${user.userName}">Logout</a></td>
+    </tr>
+</table>
+</body>
+</html>
