@@ -21,7 +21,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Controller
-@RequestMapping("/post")
+@RequestMapping("/")
 public class PostController {
     @Autowired
     PostService postService;
@@ -29,7 +29,7 @@ public class PostController {
     @Autowired
     UserSession userSession;
 
-    @GetMapping("/{userName}/add")
+    @GetMapping("/{userName}/addPost")
     public String addPost(Model model, @PathVariable(name = "userName") String userName) {
         if (userSession.isLoggedIn(userName)) {
             Post post = new Post();
@@ -42,7 +42,7 @@ public class PostController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("/{userName}/addPost")
     public String addPost(RedirectAttributes model, @RequestPart("postPhoto") Part postPic,
                           @ModelAttribute("postData") @Valid Post postData, Errors errors) throws IOException {
         if (userSession.isLoggedIn(postData.getUserName())) {
@@ -57,13 +57,13 @@ public class PostController {
             }
             postService.addPost(postData);
             model.addAttribute("userName", postData.getUserName());
-            return "redirect:/post/{userName}/posts";
+            return "redirect:/posts/{userName}";
         } else {
             return "redirect:/login";
         }
     }
 
-    @GetMapping("/{userName}/posts")
+    @GetMapping("/posts/{userName}")
     public String myPost(Model model, @PathVariable(name = "userName") String userName) throws IOException {
 
         if (userSession.isLoggedIn(userName)) {

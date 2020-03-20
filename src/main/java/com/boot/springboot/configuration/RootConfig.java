@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jndi.JndiObjectFactoryBean;
 
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 @Configuration
@@ -17,21 +19,22 @@ public class RootConfig {
     @Bean(name = "datasourceMysql")
     @Conditional(MySqlDataSourceCondition.class)
     public DataSource dataSourceMySql(@Value("${user.username}") String userName,
-                                      @Value("${user.password}") String password) {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/myuser");
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
-        return dataSource;
-
-//        JndiObjectFactoryBean jndiFactoryBean=new JndiObjectFactoryBean();
-//        jndiFactoryBean.setJndiName("java:comp/env/jdbc/TestDB");
-//        //jndiFactoryBean.setResourceRef(true);
-//        jndiFactoryBean.setProxyInterface(javax.sql.DataSource.class);
-//        DataSource dataSource= (DataSource)jndiFactoryBean.getObject();
-//        System.out.println("zzzzzzzzz"+dataSource==null);
+                                      @Value("${user.password}") String password) throws NamingException {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/myuser");
+//        dataSource.setUsername(userName);
+//        dataSource.setPassword(password);
 //        return dataSource;
+
+//        final JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+//        return dataSourceLookup.getDataSource("java:comp/env/jdbc/UsersDB");
+
+        JndiObjectFactoryBean jndiFactoryBean=new JndiObjectFactoryBean();
+        jndiFactoryBean.setJndiName("java:comp/env/jdbc/UsersDB");
+        jndiFactoryBean.setProxyInterface(javax.sql.DataSource.class);
+        jndiFactoryBean.afterPropertiesSet();
+        return (DataSource)jndiFactoryBean.getObject();
     }
 
     @Bean(name = "datasourceHql")
@@ -45,8 +48,7 @@ public class RootConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        DataSource dataSource=dataSourceMySql("root","kumar123");
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 }

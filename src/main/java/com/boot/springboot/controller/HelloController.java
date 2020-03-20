@@ -4,7 +4,6 @@ import com.boot.springboot.model.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -19,19 +18,8 @@ public class HelloController {
          return "redirect:/login";
       }
       else {
-         model.addAttribute("userName",activeUser);
-         return "redirect:/users/{userName}";
+//         model.addAttribute("userName",activeUser);
+         return "redirect:/users/"+activeUser;
       }
-   }
-   
-   @RequestMapping("/name")
-   public String index() {
-      return "index";
-   }
-
-   @GetMapping("/hello")
-   public String sayHello(/*@RequestParam String name,*/ Model model) {
-//      model.addAttribute("name", name);
-      return "redirect:/error";
    }
 }

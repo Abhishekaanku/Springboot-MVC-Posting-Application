@@ -14,7 +14,7 @@
     <title>Login</title>
 </head>
 <body>
-<sf:form id="postForm" modelAttribute="postData" action="/post/add"
+<sf:form id="postForm" modelAttribute="postData" action="/${postData.userName}/addPost"
          method="post" cssClass="postForm" enctype="multipart/form-data" >
     <table align="center">
         <tr>

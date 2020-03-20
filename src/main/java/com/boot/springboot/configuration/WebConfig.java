@@ -7,22 +7,16 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @PropertySource("classpath:application.properties")
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig {
 
     @Bean
     public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
@@ -44,18 +38,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Bean
-    public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
-        SpringTemplateEngine templateEngine=new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver);
-        return templateEngine;
-    }
+//    @Bean
+//    public SpringTemplateEngine springTemplateEngine(ClassLoaderTemplateResolver templateResolver) {
+//        SpringTemplateEngine templateEngine=new SpringTemplateEngine();
+//        templateEngine.setTemplateResolver(templateResolver);
+//        return templateEngine;
+//    }
 
     @Bean
-    public TemplateResolver templateResolver(@Value("${view.prefix}") String prefix,
-                                             @Value("${view.suffix}") String suffix) {
-//        TemplateResolver templateResolver=new ServletContextTemplateResolver();
-        TemplateResolver templateResolver=new SpringResourceTemplateResolver();
+    public ClassLoaderTemplateResolver templateResolver(@Value("${view.prefix}") String prefix,
+                                                        @Value("${view.suffix}") String suffix) {
+        ClassLoaderTemplateResolver templateResolver=new ClassLoaderTemplateResolver();
 
         templateResolver.setPrefix(prefix);
         templateResolver.setSuffix(suffix);
@@ -68,17 +61,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
-    }
-
 
 }

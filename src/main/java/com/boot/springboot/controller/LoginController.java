@@ -3,7 +3,7 @@ package com.boot.springboot.controller;
 import com.boot.springboot.model.Login;
 import com.boot.springboot.model.User;
 import com.boot.springboot.model.UserSession;
-import com.boot.springboot.service.impl.UserServiceImpl;
+import com.boot.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.util.Base64;
 public class LoginController {
 
     @Autowired
-    UserServiceImpl userServiceImpl;
+    UserService userService;
 
     @Autowired
     UserSession userSession;
@@ -39,10 +39,16 @@ public class LoginController {
     }
 
 
+    @GetMapping("/stack")
+    public String stack() {
+        return "stack";
+    }
+
+
     @RequestMapping("/users/{userName}")
     public String sayWelcome(Model model, @PathVariable(value = "userName") String userName)
             throws IOException {
-        User user = userServiceImpl.getUser(userName);
+        User user = userService.getUser(userName);
         if (user == null) {
             return "error";
         } else {
@@ -70,10 +76,10 @@ public class LoginController {
         }
 
         System.out.println("MMMMMMM "+login.getUserName()+" "+login.getPassword());
-        if (userServiceImpl.validateUser(login)) {
-            model.addAttribute("userName", login.getUserName());
+        if (userService.validateUser(login)) {
+//            model.addAttribute("userName", login.getUserName());
             userSession.logIn(login.getUserName());
-            return "redirect:/users/{userName}";
+            return "redirect:/users/"+login.getUserName();
         }
 
         model.addAttribute("message", "Username or Password is wrong!!");

@@ -8,7 +8,7 @@
     <title>Login</title>
     </head>
     <body>
-    <form id="postForm" th:object="${postData}" action="/post/add"
+    <form id="postForm" th:object="${postData}" th:action="@{/}+*{userName}+@{/addPost}"
     method="post" class="postForm" enctype="multipart/form-data" >
         <table align="center">
         <tr>

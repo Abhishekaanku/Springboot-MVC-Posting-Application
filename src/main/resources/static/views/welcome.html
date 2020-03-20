@@ -14,11 +14,11 @@
     </tr>
 
     <tr>
-        <td><a th:href="@{/post/}+${user.userName}+@{/add}">New Post</a></td>
+        <td><a th:href="@{/}+${user.userName}+@{~/addPost}">New Post</a></td>
     </tr>
 
     <tr>
-        <td><a th:href="@{/post/}+${user.userName}+@{/posts}">My Posts</a></td>
+        <td><a th:href="@{/posts/}+${user.userName}">My Posts</a></td>
     </tr>
     <tr>
         <td><a th:href="@{/logout/}+${user.userName}">Logout</a></td>

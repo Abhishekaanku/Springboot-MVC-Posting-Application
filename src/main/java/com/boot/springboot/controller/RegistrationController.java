@@ -2,7 +2,7 @@ package com.boot.springboot.controller;
 
 import com.boot.springboot.model.User;
 import com.boot.springboot.model.UserSession;
-import com.boot.springboot.service.impl.UserServiceImpl;
+import com.boot.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class RegistrationController {
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
+    private UserService userService;
 
     @Autowired
     private UserSession userSession;
@@ -48,7 +48,7 @@ public class RegistrationController {
         profilePic.write(filePath);
         user.setProfilePicture(filePath);
 
-        userServiceImpl.register(user);
+        userService.register(user);
 
         userSession.logIn(user.getUserName());
 
