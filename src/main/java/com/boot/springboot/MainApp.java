@@ -2,6 +2,7 @@ package com.boot.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.WebApplicationInitializer;
@@ -9,12 +10,11 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class MainApp extends SpringBootServletInitializer implements WebMvcConfigurer, WebApplicationInitializer {
    public static void main(String[] args) {
       SpringApplication.run(MainApp.class, args);
    }
-
 
    @Override
    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

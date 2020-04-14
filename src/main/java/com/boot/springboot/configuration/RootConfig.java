@@ -2,6 +2,7 @@ package com.boot.springboot.configuration;
 
 import com.boot.springboot.condition.HSqlDataSourceCondition;
 import com.boot.springboot.condition.MySqlDataSourceCondition;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,22 +21,23 @@ public class RootConfig {
     @Conditional(MySqlDataSourceCondition.class)
     public DataSource dataSourceMySql(@Value("${user.username}") String userName,
                                       @Value("${user.password}") String password) throws NamingException {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/myuser");
-//        dataSource.setUsername(userName);
-//        dataSource.setPassword(password);
-//        return dataSource;
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/myuser");
+        dataSource.setUsername(userName);
+        dataSource.setPassword(password);
+        return dataSource;
 
 //        final JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 //        return dataSourceLookup.getDataSource("java:comp/env/jdbc/UsersDB");
 
-        JndiObjectFactoryBean jndiFactoryBean=new JndiObjectFactoryBean();
-        jndiFactoryBean.setJndiName("java:comp/env/jdbc/UsersDB");
-        jndiFactoryBean.setProxyInterface(javax.sql.DataSource.class);
-        jndiFactoryBean.afterPropertiesSet();
-        return (DataSource)jndiFactoryBean.getObject();
+//        JndiObjectFactoryBean jndiFactoryBean=new JndiObjectFactoryBean();
+//        jndiFactoryBean.setJndiName("java:comp/env/jdbc/UsersDB");
+//        jndiFactoryBean.setProxyInterface(javax.sql.DataSource.class);
+//        jndiFactoryBean.afterPropertiesSet();
+//        return (DataSource)jndiFactoryBean.getObject();
     }
+
 
     @Bean(name = "datasourceHql")
     @Conditional(HSqlDataSourceCondition.class)
@@ -45,6 +47,11 @@ public class RootConfig {
         dataSource.setUrl("jdbc:hsqldb:hsql://localhost:9001/testdb");
         dataSource.setUsername("sa");
         return dataSource;
+    }
+
+    @Bean
+    public KeycloakSpringBootConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
     }
 
     @Bean

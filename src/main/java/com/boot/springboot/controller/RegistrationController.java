@@ -3,6 +3,7 @@ package com.boot.springboot.controller;
 import com.boot.springboot.model.User;
 import com.boot.springboot.model.UserSession;
 import com.boot.springboot.service.UserService;
+import org.keycloak.KeycloakSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -29,9 +31,12 @@ public class RegistrationController {
     private UserSession userSession;
 
     @RequestMapping("/register")
-    public String showRegister(Model model) {
+    public String showRegister(Model model, HttpServletRequest request) {
 
         model.addAttribute("user", new User());
+        KeycloakSecurityContext context=(KeycloakSecurityContext) request.getAttribute(KeycloakSecurityContext.class.getName());
+        String name=context.getIdToken().getGivenName();
+        System.out.println("-----------"+name);
 
         return "register";
 
